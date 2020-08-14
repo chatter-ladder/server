@@ -31,7 +31,7 @@ app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 
 // vocabulary
-app.get('/vocabulary', db.getVocabulary)
+app.get('/users/:id/vocabulary', db.getVocabulary)
 app.post('/vocabulary', db.createVocabulary)
 
 app.listen(port, () => {
