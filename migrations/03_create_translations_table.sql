@@ -1,0 +1,1 @@
+CREATE TABLE translations (id serial PRIMARY KEY, translation VARCHAR(50), language VARCHAR(50), created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ);

@@ -1,0 +1,1 @@
+CREATE TABLE vocabulary (id serial PRIMARY KEY, user_id INTEGER REFERENCES users (id), word_id INTEGER REFERENCES words (id), translation_id INTEGER REFERENCES translations (id), progress VARCHAR(10), num_seen INT, num_correct INT, created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ);

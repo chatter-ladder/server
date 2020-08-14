@@ -1,0 +1,1 @@
+CREATE TABLE words (id serial PRIMARY KEY, name VARCHAR(50), email VARCHAR(50), created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ);

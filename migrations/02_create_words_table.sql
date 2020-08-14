@@ -1,0 +1,1 @@
+CREATE TABLE words (id serial PRIMARY KEY, word VARCHAR(50), language VARCHAR(50), created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ);
