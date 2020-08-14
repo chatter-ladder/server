@@ -32,6 +32,7 @@ export const getUserById = (request, response) => {
 }
 
 export const createUser = (request, response) => {
+    console.log('creating user')
     const { name, email } = request.body;
 
     pool.query('INSERT INTO users (name, email) VALUES ($1, $2);', [name, email], (error, results) => {
