@@ -22,12 +22,17 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
+// users
 app.get('/users', db.getUsers)
 app.get('/users/:id', db.getUserById)
 app.get('/users/:id', db.getUserById)
 app.post('/users', db.createUser)
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
+
+// vocabulary
+app.get('/vocabulary', db.getVocabulary)
+app.post('/vocabulary', db.createVocabulary)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

@@ -10,6 +10,8 @@ const pool = new pg.Pool({
     port: process.env['DB_PORT']
 })
 
+// users
+
 export const getUsers = (request, response) => {
     pool.query('SELECT * FROM users ORDER BY id ASC;', (error, results) => {
         if (error) {
@@ -68,4 +70,31 @@ export const deleteUser = (request, response) => {
         }
         response.status(200).send(`User deleted with ID: ${id}`)
     })
+}
+
+// vocabulary
+
+export const getVocabulary = (request, response) => {
+
+}
+
+export const createVocabulary = (request, response) => {
+    const id = parseInt(request.params.id);
+    const { word, word_language, translation, translation_language } = request.body;
+
+    pool.query('INSERT INTO words (word, language) VALUES ($1, $2);', [word, word_language], (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        pool.query('INSERT INTO translations (translation, language) VALUES ($1, $2);', [translation, translation_language], (error, results) => {
+            if (error) {
+                throw error
+            }
+        response.sendStatus(201)
+        // response.status(201).send(`Translation was added with ID: ${results}`)
+    })
+
+    })
+
 }
