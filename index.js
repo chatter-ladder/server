@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import * as db from './queries.js';
 
 const app = express()
-const port = 3000;
+const port = 3001;
 
 app.use(bodyParser.json())
 app.use(
@@ -11,6 +11,11 @@ app.use(
         extended: true,
     })
 );
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    next();
+})
 
 app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
