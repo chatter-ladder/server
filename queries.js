@@ -123,3 +123,15 @@ export const createVocabulary = (request, response) => {
     })
 
 }
+
+export const getFlashcards = (request, response) => {
+    const id = parseInt(request.params.id);
+    const { numFlashcards } = request.body;
+
+    pool.query('SELECT w.word, t.translation, v.progress FROM vocabulary AS v LEFT JOIN words AS w ON v.word_id = w.id LEFT JOIN translations AS t ON v.translation_id = t.id WHERE user_id = $1 ORDER BY random() LIMIT $2;', [id, numFlashcards], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
