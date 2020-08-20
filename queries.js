@@ -23,7 +23,7 @@ export const getUsers = (request, response) => {
 
 export const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
-    console.log(id);
+    // console.log(id);
 
     pool.query('SELECT * FROM users WHERE id = $1;', [id], (error, results) => {
         if (error) {
@@ -82,6 +82,17 @@ export const getVocabulary = (request, response) => {
             throw error
         }
         response.status(200).json(results.rows)
+    })
+}
+
+export const countVocabulary = (request, response) => {
+    const id = parseInt(request.params.id)
+    console.log(id)
+    pool.query('SELECT w.word, t.translation, v.progress FROM vocabulary AS v LEFT JOIN words AS w ON v.word_id = w.id LEFT JOIN translations AS t ON v.translation_id = t.id WHERE user_id = $1;', [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows.length)
     })
 }
 

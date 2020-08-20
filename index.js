@@ -34,6 +34,10 @@ app.delete('/users/:id', db.deleteUser)
 app.get('/users/:id/vocabulary', db.getVocabulary)
 app.post('/vocabulary', db.createVocabulary)
 
+// flashcards
+app.get('/users/:id/vocabulary/count', db.countVocabulary)
+// app.post('/flashcards', db.getFlashcards)
+
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })
