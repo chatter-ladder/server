@@ -37,6 +37,7 @@ app.post('/vocabulary', db.createVocabulary)
 // flashcards
 app.get('/users/:id/vocabulary/count', db.countVocabulary)
 app.post('/flashcards', db.getFlashcards)
+app.post('/flashcards/completed', db.updateVocabulary)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
