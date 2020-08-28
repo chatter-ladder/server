@@ -76,6 +76,16 @@ export const createUser = async (request, response) => {
     } else {
         const hashedPassword = await bcrypt.hash(password, 10);
         console.log(hashedPassword);
+        
+        pool.query(
+            'SELECT * FROM users WHERE email = $1;', [email], (error, results) => {
+                if (error) {
+                    throw error
+                }
+
+                console.log(results.rows);
+            }
+        )
     }
     // hash password
 
