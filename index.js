@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import passport from './passport/index.js';
 // import session from 'express-session';
 import * as db from './queries.js';
 
@@ -18,6 +19,9 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
 })
+app.use(passport.initialize())
+// app.use(passport.session())
+
 // app.use(session({
 //     secret: process.env.SESSION_SECRET,
 //     resave: false,

@@ -1,10 +1,10 @@
 import passport from 'passport';
 
 // import all the strategies here:
-import RegisterStrategy from './registerStrategy';
-import LogInStrategy from './logInStrategy';
+import registerStrategy from './registerStrategy.js';
+import logInStrategy from './logInStrategy.js';
 
-passport.use('local-register', RegisterStrategy);
-passport.use('local-login', LogInStrategy)
+passport.use('local-register', registerStrategy);
+passport.use('local-login', logInStrategy)
 
 export default passport;
