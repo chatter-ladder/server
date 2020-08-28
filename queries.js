@@ -1,4 +1,5 @@
 import pg from 'pg';
+import bcrypt from 'bcrypt';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -44,7 +45,7 @@ export const getUserById = (request, response) => {
     })
 }
 
-export const createUser = (request, response) => {
+export const createUser = async (request, response) => {
     console.log('creating user')
     const { username, email, password, confirmPassword } = request.body;
     
@@ -55,8 +56,27 @@ export const createUser = (request, response) => {
         confirmPassword
         )
 
-    // do check here that password and confirmPassword are the same
+    let errors = [];
 
+    if (!username || !email || !password || !confirmPassword) {
+        errors.push({ message: 'Please enter all fields' })
+    }
+
+    if (password.length < 6) {
+        errors.push({ message: 'Password should be at least 6 characters' })
+    }
+
+    if (password !== confirmPassword) {
+        errors.push({  message: 'Passwords do not match '})
+    }
+
+    if (errors.length > 0) {
+        console.log('errors detected...')
+        response.status(200).send({ errors: errors })
+    } else {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log(hashedPassword);
+    }
     // hash password
 
     response.status(201);
