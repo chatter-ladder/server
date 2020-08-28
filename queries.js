@@ -88,6 +88,19 @@ export const createUser = async (request, response) => {
                 if (results.rows.length > 0) {
                     errors.push({ message: 'Email already registered' })
                     response.status(200).send({ errors: errors })
+                } else {
+                    pool.query(
+                        `INSERT INTO users (name, email, password) 
+                        VALUES ($1, $2, $3)
+                        RETURNING id, password`, 
+                        [username, email, hashedPassword], 
+                        (error, results) => {
+                        if (error) {
+                            throw error
+                        }
+                        console.log(results.rows)
+                        response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+                    })
                 }
             }
         )
