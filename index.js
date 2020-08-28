@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import * as db from './queries.js';
 
 const app = express()
-const port = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(bodyParser.json())
 app.use(
@@ -40,7 +40,7 @@ app.get('/users/:id/vocabulary/count', db.countVocabulary)
 app.post('/flashcards', db.getFlashcards)
 app.post('/flashcards/completed', db.updateVocabulary)
 
-app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
+app.listen(PORT, () => {
+    console.log(`App running on port ${PORT}.`)
 })
 
