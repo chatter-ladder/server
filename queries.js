@@ -34,15 +34,27 @@ export const getUserById = (request, response) => {
 }
 
 export const createUser = (request, response) => {
-    // console.log('creating user')
-    const { name, email } = request.body;
+    console.log('creating user')
+    const { username, email, password, confirmPassword } = request.body;
+    
+    console.log(
+        username,
+        email,
+        password,
+        confirmPassword
+        )
 
-    pool.query('INSERT INTO users (name, email) VALUES ($1, $2);', [name, email], (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(201).send(`User added with ID: ${result.insertId}`)
-    })
+    // do check here that password and confirmPassword are the same
+
+    // hash password
+
+    response.status(201);
+    // pool.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3);', [name, email, hashPassword], (error, results) => {
+    //     if (error) {
+    //         throw error
+    //     }
+    //     response.status(201).send(`User added with ID: ${result.insertId}`)
+    // })
 }
 
 export const updateUser = (request, response) => {
