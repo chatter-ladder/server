@@ -12,6 +12,17 @@ const pool = new pg.Pool({
 
 // users
 
+export const loginUser = (request, response) => {
+    console.log('logging user in');
+    const { email, password } = request.body;
+    
+    console.log(
+        email,
+        password
+        )
+    response.status(201);
+}
+
 export const getUsers = (request, response) => {
     pool.query('SELECT * FROM users ORDER BY id ASC;', (error, results) => {
         if (error) {

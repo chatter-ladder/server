@@ -24,7 +24,7 @@ app.get('/', (request, response) => {
 
 // users
 app.post('/users/register', db.createUser)
-// app.post('users/login')
+app.post('/users/login', db.loginUser)
 app.get('/users', db.getUsers)
 app.get('/users/:id', db.getUserById)
 app.get('/users/:id', db.getUserById)
