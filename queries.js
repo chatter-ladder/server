@@ -84,6 +84,11 @@ export const createUser = async (request, response) => {
                 }
 
                 console.log(results.rows);
+                
+                if (results.rows.length > 0) {
+                    errors.push({ message: 'Email already registered' })
+                    response.status(200).send({ errors: errors })
+                }
             }
         )
     }
