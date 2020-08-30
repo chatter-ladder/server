@@ -1,0 +1,1 @@
+CREATE TABLE refresh_tokens (id serial PRIMARY KEY, refresh_token VARCHAR(500) NOT NULL UNIQUE, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
