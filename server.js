@@ -39,9 +39,15 @@ const authenticateToken = (request, response, next) => {
     })
 }
 
-// users
+// const generateAccessToken = (user) => {
+//     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+// }
+
 app.post('/users/register', db.createUser)
 app.post('/users/login', db.loginUser)
+app.post('/users/token', db.updateToken)
+
+// users
 app.get('/users', db.getUsers)
 // app.get('/users/:id', db.getUserById)
 app.put('/users/:id', db.updateUser)

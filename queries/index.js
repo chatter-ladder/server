@@ -1,5 +1,6 @@
 export { createUser } from './authentication/createUser.js';
 export { loginUser } from './authentication/loginUser.js';
+export { updateToken } from './authentication/updateToken.js';
 
 export { getUsers } from './users/getUsers.js';
 export { getUserById } from './users/getUsersById.js';
