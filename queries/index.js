@@ -1,7 +1,7 @@
 export { createUser } from './authentication/createUser.js';
 export { loginUser } from './authentication/loginUser.js';
 export { updateToken } from './authentication/updateToken.js';
-export { logoutUser } from './authentication/logoutUser';
+export { logoutUser } from './authentication/logoutUser.js';
 
 export { getUsers } from './users/getUsers.js';
 export { getUserById } from './users/getUsersById.js';
