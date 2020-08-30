@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import passport from './passport/index.js';
 // import session from 'express-session';
-import * as db from './queries.js';
+import * as db from './queries/queries.js';
 
 const app = express()
 const PORT = process.env.PORT || 3001;

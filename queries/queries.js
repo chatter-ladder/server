@@ -1,15 +1,7 @@
-import pg from 'pg';
 import bcrypt from 'bcrypt';
 
-import dotenv from 'dotenv';
-dotenv.config();
+import pool from '../db/connection.js';
 
-const pool = new pg.Pool({
-    user: process.env['DB_USER'],
-    host: process.env['DB_HOST'],
-    database: process.env['DB_DATABASE'],
-    port: process.env['DB_PORT']
-})
 
 // users
 
