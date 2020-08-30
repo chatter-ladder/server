@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 export const updateToken = (request, response) => {
-    console.log('refreshing token...')
     const refreshToken = request.body.token
     if (refreshToken === null) return response.sendStatus(401)
     

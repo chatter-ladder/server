@@ -2,16 +2,8 @@ import pool from '../../db/connection.js';
 import bcrypt from 'bcrypt';
 
 export const createUser = async (request, response) => {
-    console.log('creating user')
     const { username, email, password, confirmPassword } = request.body;
     
-    console.log(
-        username,
-        email,
-        password,
-        confirmPassword
-        )
-
     let errors = [];
 
     if (!username || !email || !password || !confirmPassword) {
@@ -27,19 +19,15 @@ export const createUser = async (request, response) => {
     }
 
     if (errors.length > 0) {
-        console.log('errors detected...')
         response.status(200).send({ errors: errors })
     } else {
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
         
         pool.query(
             'SELECT * FROM users WHERE email = $1;', [email], (error, results) => {
                 if (error) {
                     throw error
                 }
-
-                console.log(results.rows);
                 
                 if (results.rows.length > 0) {
                     errors.push({ message: 'Email already registered' })
@@ -54,20 +42,10 @@ export const createUser = async (request, response) => {
                         if (error) {
                             throw error
                         }
-                        console.log(results.rows)
                         response.status(201).send(`User added with ID: ${results.rows[0].id}`)
                     })
                 }
             }
         )
     }
-    // hash password
-
-    response.status(201);
-    // pool.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3);', [name, email, hashPassword], (error, results) => {
-    //     if (error) {
-    //         throw error
-    //     }
-    //     response.status(201).send(`User added with ID: ${result.insertId}`)
-    // })
 }

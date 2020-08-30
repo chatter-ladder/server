@@ -22,7 +22,6 @@ export const createVocabulary = (request, response) => {
                 }
                 response.sendStatus(201)
             })
-        // response.status(201).send(`Translation was added with ID: ${results}`)
         })
     })
 

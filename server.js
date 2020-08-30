@@ -28,11 +28,9 @@ app.get('/', (request, response) => {
 const authenticateToken = (request, response, next) => {
     const authHeader = request.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    console.log(token)
     if (token === null) return response.sendStatus(401)
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
-        console.log(response)
         if (error) return response.sendStatus(403)
         request.user = user
         next()
