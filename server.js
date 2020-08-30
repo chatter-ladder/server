@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import passport from './passport/index.js';
-// import session from 'express-session';
 import * as db from './queries/index.js';
 
 const app = express()
@@ -20,13 +19,6 @@ app.use((req, res, next) => {
     next();
 })
 app.use(passport.initialize())
-// app.use(passport.session())
-
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false
-// }))
 
 app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
