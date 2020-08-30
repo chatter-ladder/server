@@ -1,16 +1,15 @@
 import pool from '../../db/connection.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 export const loginUser = (request, response) => {
     console.log('logging user in');
     const { email, password } = request.body;
     
-    // console.log(
-    //     email,
-    //     password
-    //     )
-    
-    // find user
+    // Authenticate User:
     pool.query('SELECT * FROM users WHERE email = $1;', [email], async (error, results) => {
         if (error) {
             throw error
@@ -22,7 +21,13 @@ export const loginUser = (request, response) => {
         }
         try {
             if (await bcrypt.compare(request.body.password, results.rows[0].password)) {
-                response.send('Success')
+                // response.send('Success')
+
+                const username = results.rows[0].username
+                const user = results.rows[0]
+
+                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+                response.json({ accessToken: accessToken })
             } else {
                 response.send("Not allowed")
             }
@@ -32,5 +37,5 @@ export const loginUser = (request, response) => {
         // response.status(200).json(results.rows)
     })
 
-    response.status(201);
+    // response.status(201);
 }
