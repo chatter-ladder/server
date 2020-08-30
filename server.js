@@ -55,13 +55,13 @@ app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 
 // vocabulary
-app.get('/users/vocabulary', authenticateToken, db.getVocabulary)
-app.post('/vocabulary', db.createVocabulary)
+app.get('/vocabulary', authenticateToken, db.getVocabulary)
+app.post('/vocabulary', authenticateToken, db.createVocabulary)
 
 // flashcards
-app.get('/users/:id/vocabulary/count', db.countVocabulary)
-app.post('/flashcards', db.getFlashcards)
-app.post('/flashcards/completed', db.updateVocabulary)
+app.get('/vocabulary/count', authenticateToken, db.countVocabulary)
+app.post('/flashcards', authenticateToken, db.getFlashcards)
+app.post('/flashcards/completed', authenticateToken, db.updateVocabulary)
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}.`)
