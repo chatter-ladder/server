@@ -46,6 +46,7 @@ const authenticateToken = (request, response, next) => {
 app.post('/users/register', db.createUser)
 app.post('/users/login', db.loginUser)
 app.post('/users/token', db.updateToken)
+app.delete('/users/logout', db.logoutUser)
 
 // users
 app.get('/users', db.getUsers)
