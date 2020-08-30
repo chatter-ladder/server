@@ -28,8 +28,8 @@ export const loginUser = (request, response) => {
                 const username = results.rows[0].username
                 const user = results.rows[0]
 
-                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
-                const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+                const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+                const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET)
                 // Need to save refresh token to db
 
                 pool.query(
