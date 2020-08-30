@@ -1,14 +1,14 @@
-export { createUser } from './createUser.js'
-export { loginUser } from './queries.js'
+export { createUser } from './authentication/createUser.js';
+export { loginUser } from './authentication/loginUser.js';
 
-export { getUsers } from './queries.js'
-export { getUserById } from './queries.js'
-export { updateUser } from './queries.js'
-export { deleteUser } from './queries.js'
+export { getUsers } from './users/getUsers.js';
+export { getUserById } from './users/getUsersById.js';
+export { updateUser } from './users/updateUser.js';
+export { deleteUser } from './users/deleteUser.js';
 
-export { getVocabulary } from './queries.js'
-export { countVocabulary } from './queries.js'
-export { createVocabulary } from './queries.js'
-export { updateVocabulary } from './queries.js'
+export { getVocabulary } from './vocabulary/getVocabulary.js';
+export { countVocabulary } from './vocabulary/countVocabulary.js';
+export { createVocabulary } from './vocabulary/createVocabulary.js';
+export { updateVocabulary } from './vocabulary/updateVocabulary.js';
 
-export { getFlashcards } from './queries.js'
+export { getFlashcards } from './flashcards/getFlashcards.js';
