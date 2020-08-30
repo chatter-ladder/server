@@ -8,6 +8,8 @@ dotenv.config()
 export const loginUser = (request, response) => {
     console.log('logging user in');
     const { email, password } = request.body;
+
+    console.log(email, password)
     
     // Authenticate User:
     pool.query('SELECT * FROM users WHERE email = $1;', [email], async (error, results) => {
@@ -26,8 +28,22 @@ export const loginUser = (request, response) => {
                 const username = results.rows[0].username
                 const user = results.rows[0]
 
-                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-                response.json({ accessToken: accessToken })
+                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+                const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+                // Need to save refresh token to db
+
+                pool.query(
+                    `INSERT INTO refresh_tokens (refresh_token)
+                    VALUES ($1)`, [refreshToken],
+                    (error, results) => {
+                        if (error) {
+                            throw error
+                        }
+                        console.log('refresh token saved to db')
+                    }
+                )
+
+                response.json({ accessToken: accessToken, refreshToken: refreshToken })
             } else {
                 response.send("Not allowed")
             }
