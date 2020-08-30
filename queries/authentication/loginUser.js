@@ -28,7 +28,7 @@ export const loginUser = (request, response) => {
                 const username = results.rows[0].username
                 const user = results.rows[0]
 
-                const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+                const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3600s' })
                 const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET)
                 // Need to save refresh token to db
 
@@ -43,7 +43,7 @@ export const loginUser = (request, response) => {
                     }
                 )
 
-                response.json({ accessToken: accessToken, refreshToken: refreshToken })
+                response.json({ accessToken: accessToken, expiresIn: "3600", refreshToken: refreshToken })
             } else {
                 response.send("Not allowed")
             }
