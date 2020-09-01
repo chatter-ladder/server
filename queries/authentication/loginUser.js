@@ -36,8 +36,8 @@ export const loginUser = (request, response) => {
                         console.log('refresh token saved to db')
                     }
                 )
-
-                response.json({ accessToken: accessToken, expiresIn: "3600", refreshToken: refreshToken })
+                console.log('logging user in...')
+                response.json({ userId: user.id, accessToken: accessToken, expiresIn: "3600", refreshToken: refreshToken })
             } else {
                 response.send("Not allowed")
             }

@@ -58,7 +58,7 @@ export const createUser = async (request, response) => {
                             }
                         )
                         console.log('creating user...')
-                        response.status(201).send({ email: results.rows[0].email, accessToken: accessToken, expiresIn: '3600', refreshToken: refreshToken })
+                        response.status(201).send({ userId: results.rows[0].id, accessToken: accessToken, expiresIn: '3600', refreshToken: refreshToken })
                     })
                 }
             }
