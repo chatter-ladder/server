@@ -1,5 +1,6 @@
 import pool from '../../db/connection.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const createUser = async (request, response) => {
     const { username, email, password, confirmPassword } = request.body;
@@ -19,7 +20,7 @@ export const createUser = async (request, response) => {
     }
 
     if (errors.length > 0) {
-        response.status(200).send({ errors: errors })
+        response.status(400).send({ errors: errors })
     } else {
         const hashedPassword = await bcrypt.hash(password, 10);
         
@@ -31,7 +32,7 @@ export const createUser = async (request, response) => {
                 
                 if (results.rows.length > 0) {
                     errors.push({ message: 'Email already registered' })
-                    response.status(200).send({ errors: errors })
+                    response.status(400).send({ errors: errors })
                 } else {
                     pool.query(
                         `INSERT INTO users (name, email, password) 
@@ -42,7 +43,22 @@ export const createUser = async (request, response) => {
                         if (error) {
                             throw error
                         }
-                        response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+
+                        const accessToken = jwt.sign({ id: results.rows[0].id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3600s' })
+                        const refreshToken = jwt.sign({ id: results.rows[0].id }, process.env.REFRESH_TOKEN_SECRET)
+        
+                        pool.query(
+                            `INSERT INTO refresh_tokens (refresh_token)
+                            VALUES ($1)`, [refreshToken],
+                            (error, results) => {
+                                if (error) {
+                                    throw error
+                                }
+                                console.log('refresh token saved to db')
+                            }
+                        )
+                        console.log('creating user...')
+                        response.status(201).send({ email: results.rows[0].email, accessToken: accessToken, expiresIn: '3600', refreshToken: refreshToken })
                     })
                 }
             }
