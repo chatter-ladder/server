@@ -5,20 +5,15 @@ import jwt from 'jsonwebtoken';
 export const createUser = async (request, response) => {
     const { username, email, password, confirmPassword } = request.body;
     
-    // let errors = [];
-
     if (!username || !email || !password || !confirmPassword) {
-        // errors.push({ message: 'Please enter all fields' })
         return response.status(400).send({ error: 'Please enter all fields' })
     }
 
     if (password.length < 6) {
-        // errors.push({ message: 'Password should be at least 6 characters' })
         return response.status(400).send({ error: 'Password should be at least 6 characters' })
     }
 
     if (password !== confirmPassword) {
-        // errors.push({  message: 'Passwords do not match '})
         return response.status(400).send({ error: 'Passwords do not match' })
     }
 
@@ -31,7 +26,6 @@ export const createUser = async (request, response) => {
             }
             
             if (results.rows.length > 0) {
-                // errors.push({ message: 'Email already registered' })
                 response.status(400).send({ error: 'Email already registered' })
             } else {
                 pool.query(
@@ -63,5 +57,4 @@ export const createUser = async (request, response) => {
             }
         }
     )
-    // }
 }
