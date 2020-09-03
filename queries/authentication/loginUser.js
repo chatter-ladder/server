@@ -15,7 +15,7 @@ export const loginUser = (request, response) => {
         }
         
         if (results.rows.length === 0) {
-            return response.status(400).send('Cannot find user')
+            return response.status(400).send({ error: 'Cannot find user' })
         }
         try {
             if (await bcrypt.compare(request.body.password, results.rows[0].password)) {
@@ -37,12 +37,14 @@ export const loginUser = (request, response) => {
                     }
                 )
                 console.log('logging user in...')
-                response.json({ userId: user.id, accessToken: accessToken, expiresIn: "3600", refreshToken: refreshToken })
+                response.status(200).send({ userId: user.id, accessToken: accessToken, expiresIn: "3600", refreshToken: refreshToken })
             } else {
-                response.send("Not allowed")
+                console.log("Password didn't match...")
+                return response.status(404).send({ error: "Passwords don't match"})
             }
         } catch {
-            response.status(500).send()
+            console.log("Something went wrong..")
+            return response.status(500).send({ error: "It just didn't work" })
         }
     })
 }
