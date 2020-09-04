@@ -32,7 +32,7 @@ app.get("/", (request, response) => {
 });
 
 const authenticateToken = (request, response, next) => {
-  console.log("authenticating user...");
+  // console.log("authenticating user...");
   // console.log(request.headers);
   const authHeader = request.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
