@@ -48,15 +48,13 @@ export const loginUser = (request, response) => {
               // console.log('refresh token saved to db')
             }
           );
-          console.log("logging user in...");
-          response
-            .status(200)
-            .send({
-              userId: user.id,
-              accessToken: accessToken,
-              expiresIn: "3600",
-              refreshToken: refreshToken,
-            });
+          // console.log("logging user in...");
+          response.status(200).send({
+            userId: user.id,
+            accessToken: accessToken,
+            expiresIn: "3600",
+            refreshToken: refreshToken,
+          });
         } else {
           console.log("Password didn't match...");
           return response.status(404).send({ error: "Passwords don't match" });
