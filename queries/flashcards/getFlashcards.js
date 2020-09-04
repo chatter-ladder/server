@@ -1,7 +1,7 @@
 import pool from "../../db/connection.js";
 
 export const getFlashcards = (request, response) => {
-  console.log("getting flashcards...");
+  // console.log("getting flashcards...");
   const user_id = request.user.id;
   const { number } = request.body;
   pool.query(
@@ -15,7 +15,7 @@ export const getFlashcards = (request, response) => {
       if (error) {
         throw error;
       }
-      console.log(results.rows);
+      // console.log(results.rows);
       response.status(200).json(results.rows);
     }
   );
