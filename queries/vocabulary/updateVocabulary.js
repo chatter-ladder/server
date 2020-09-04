@@ -1,12 +1,8 @@
 import pool from "../../db/connection.js";
 
 export const updateVocabulary = (request, response) => {
-  console.log("Updating vocabulary..");
   const user_id = request.user.id;
   const vocabList = request.body;
-
-  console.log("vocablist is..");
-  console.log(vocabList);
 
   vocabList.map((vocab) => {
     let isSeen = 0;
@@ -18,7 +14,6 @@ export const updateVocabulary = (request, response) => {
       isCorrect = 1;
     }
 
-    console.log(`isSeen: ${isSeen}, isCorrect: ${isCorrect}`);
     pool.query(
       `UPDATE vocabulary 
       SET 
